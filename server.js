@@ -51,10 +51,15 @@ app.set('view engine', 'ejs');
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
-app.use(require('morgan')('combined'));
+
+// app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false,
+  cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 365
+  }
+}));
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
