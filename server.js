@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db');
+var path = require('path');
 
 
 // Configure the local strategy for use by Passport.
@@ -46,8 +47,10 @@ passport.deserializeUser(function(id, cb) {
 var app = express();
 
 // Configure view engine to render EJS templates.
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
+// app.set('views', __dirname + '/views');
+// app.set('view engine', 'ejs');
+
+app.use(expres.static(path.join(__dirname, '/view/build')));
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -95,4 +98,8 @@ app.get('/profile',
     res.render('profile', { user: req.user });
   });
 
-app.listen(3000);
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname + '/view/build/index.html'));
+});
+
+app.listen(5000);
