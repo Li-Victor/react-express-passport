@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
 const db = require('./db');
+const path = require('path');
 
 // Create a new Express application.
 const app = express();
@@ -42,10 +43,10 @@ passport.deserializeUser((id, cb) => {
 });
 
 // Configure view engine to render EJS templates.
-app.set('views', `${__dirname}/views`);
-app.set('view engine', 'ejs');
+// app.set('views', `${__dirname}/views`);
+// app.set('view engine', 'ejs');
 
-// app.use(express.static(path.join(__dirname, '/view/build')));
+app.use(express.static(path.join(__dirname, '/view/build')));
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -67,10 +68,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Define routes.
-app.get('/',
-  (req, res) => {
-    res.render('home', { user: req.user });
-  });
+
+// client side rendering with react
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view/build/index.html'));
+});
 
 app.get('/login',
   (req, res) => {
