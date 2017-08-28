@@ -1,9 +1,10 @@
-var express = require('express');
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
-var db = require('./db');
-var path = require('path');
+const express = require('express');
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const db = require('./db');
 
+// Create a new Express application.
+const app = express();
 
 // Configure the local strategy for use by Passport.
 //
@@ -12,11 +13,11 @@ var path = require('path');
 // that the password is correct and then invoke `cb` with a user object, which
 // will be set at `req.user` in route handlers after authentication.
 passport.use(new Strategy(
-  function(username, password, cb) {
-    db.users.findByUsername(username, function(err, user) {
+  (username, password, cb) => {
+    db.users.findByUsername(username, (err, user) => {
       if (err) { return cb(err); }
       if (!user) { return cb(null, false); }
-      if (user.password != password) { return cb(null, false); }
+      if (user.password !== password) { return cb(null, false); }
       return cb(null, user);
     });
   }));
@@ -29,28 +30,22 @@ passport.use(new Strategy(
 // typical implementation of this is as simple as supplying the user ID when
 // serializing, and querying the user record by ID from the database when
 // deserializing.
-passport.serializeUser(function(user, cb) {
+passport.serializeUser((user, cb) => {
   cb(null, user.id);
 });
 
-passport.deserializeUser(function(id, cb) {
-  db.users.findById(id, function (err, user) {
+passport.deserializeUser((id, cb) => {
+  db.users.findById(id, (err, user) => {
     if (err) { return cb(err); }
-    cb(null, user);
+    return cb(null, user);
   });
 });
 
-
-
-
-// Create a new Express application.
-var app = express();
-
 // Configure view engine to render EJS templates.
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'ejs');
+app.set('views', `${__dirname}/views`);
+app.set('view engine', 'ejs');
 
-app.use(expres.static(path.join(__dirname, '/view/build')));
+// app.use(express.static(path.join(__dirname, '/view/build')));
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -58,10 +53,12 @@ app.use(expres.static(path.join(__dirname, '/view/build')));
 // app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false,
+app.use(require('express-session')({ secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
   cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 365
-  }
+    maxAge: 1000 * 60 * 60 * 24 * 365,
+  },
 }));
 
 // Initialize Passport and restore authentication state, if any, from the
@@ -71,35 +68,34 @@ app.use(passport.session());
 
 // Define routes.
 app.get('/',
-  function(req, res) {
+  (req, res) => {
     res.render('home', { user: req.user });
   });
 
 app.get('/login',
-  function(req, res){
+  (req, res) => {
     res.render('login');
   });
 
 app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
+  (req, res) => {
     res.redirect('/');
   });
 
 app.get('/logout',
-  function(req, res){
+  (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
+  (req, res) => {
     res.render('profile', { user: req.user });
   });
 
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname + '/view/build/index.html'));
-});
-
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '/view/build/index.html'));
+// });
 app.listen(5000);
