@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
+import router from '../router';
+
 class App extends Component {
   render() {
     return (
       <div>
-        <p>Welcome! Please <a href="/login">log in</a>.</p>
+        { router }
       </div>
     );
   }
