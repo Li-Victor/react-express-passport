@@ -69,35 +69,27 @@ app.use(passport.session());
 
 // Define routes.
 
-// client side rendering with react
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'view/build/index.html'));
-});
-
-app.get('/login',
-  (req, res) => {
-    res.render('login');
-  });
-
-app.post('/login',
+app.post('/server/login',
   passport.authenticate('local', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('/');
   });
 
-app.get('/logout',
+app.get('/server/logout',
   (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
-app.get('/profile',
+app.get('/server/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   (req, res) => {
     res.render('profile', { user: req.user });
   });
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '/view/build/index.html'));
-// });
+// client side rendering with react
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view/build/index.html'));
+});
+
 app.listen(5000);
