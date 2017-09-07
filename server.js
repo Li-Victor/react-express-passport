@@ -69,21 +69,19 @@ app.use(passport.session());
 
 // Define routes.
 
-app.post('/server/login',
+app.post('/auth/login',
   passport.authenticate('local', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('/');
   });
 
-app.get('/server/logout',
+app.get('/auth/logout',
   (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
-app.get('/server/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
-  (req, res) => {
+app.get('/auth/profile', (req, res) => {
     res.render('profile', { user: req.user });
   });
 
