@@ -81,10 +81,6 @@ app.get('/auth/logout',
     res.redirect('/');
   });
 
-app.get('/auth/profile', (req, res) => {
-    res.render('profile', { user: req.user });
-  });
-
 // client side rendering with react
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'view/build/index.html'));
