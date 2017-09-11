@@ -4,6 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
+    "build": "cd view && yarn build && cd ..",
     "start": "nodemon server.js"
   },
   "dependencies": {
