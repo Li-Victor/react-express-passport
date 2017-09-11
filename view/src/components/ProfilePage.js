@@ -10,45 +10,19 @@ const ProfilePage = ({ user }) => {
   else if (isEmptyObject(user)) {
     return <Redirect to="/login" />;
   }
-  return (<p>
-    ID: {user.id}<br />
-    Username: {user.username}<br />
-    Name: {user.displayName}<br />
-    {user.emails &&
-      <div>
-        Email: {user.emails[0].value}
-      </div>}
-    <a href="/auth/logout">Log out </a>
-  </p>);
+  return (
+    <p>
+      ID: {user.id}<br />
+      Username: {user.username}<br />
+      Name: {user.displayName}<br />
+      {user.emails &&
+        <div>
+          Email: {user.emails[0].value}
+        </div>}
+      <a href="/auth/logout">Log out </a>
+    </p>
+  );
 };
-
-// class ProfilePage extends React.Component {
-//   renderContent() {
-//     const { user } = this.props;
-//     if (user === null) return <div>Something has gone terribly wrong</div>;
-//     else if (isEmptyObject(user)) {
-//       return <Redirect to="/login" />;
-//     }
-//     return (<p>
-//       ID: {user.id}<br />
-//       Username: {user.username}<br />
-//       Name: {user.displayName}<br />
-//       {user.emails &&
-//         <div>
-//           Email: {user.emails[0].value}
-//         </div>}
-//       <a href="/auth/logout">Log out </a>
-//     </p>);
-//   }
-//
-//   render() {
-//     return (
-//       <div>
-//         {this.renderContent()}
-//       </div>
-//     );
-//   }
-// }
 
 ProfilePage.propTypes = {
   /* eslint-disable */
