@@ -1,11 +1,9 @@
-import { USER_LOGGED_IN, USER_LOGGED_OUT } from '../types';
+import { FETCH_USER } from '../actions/types';
 
-export default function (state = {}, action = {}) {
+export default function (state = null, action) {
   switch (action.type) {
-    case USER_LOGGED_IN:
-      return action.user;
-    case USER_LOGGED_OUT:
-      return {};
+    case FETCH_USER:
+      return action.payload || false;
     default:
       return state;
   }

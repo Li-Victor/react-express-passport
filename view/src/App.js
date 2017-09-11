@@ -1,14 +1,27 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from './actions';
 
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 
-const App = () => (
-  <div>
-    <Route path="/" exact component={HomePage} />
-    <Route path="/login" exact component={LoginPage} />
-  </div>
-);
 
-export default App;
+class App extends React.Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <div>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/login" exact component={LoginPage} />
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default connect(null, actions)(App);
