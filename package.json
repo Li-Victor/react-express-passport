@@ -4,8 +4,8 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "build": "cd view && yarn build && cd ..",
-    "start": "nodemon server.js"
+    "build": "cd client && yarn build && cd ..",
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",

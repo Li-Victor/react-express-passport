@@ -46,7 +46,7 @@ passport.deserializeUser((id, cb) => {
 // app.set('views', `${__dirname}/views`);
 // app.set('view engine', 'ejs');
 
-app.use(express.static(path.join(__dirname, '/view/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -97,7 +97,7 @@ app.get('/auth/current_user', (req, res) => {
 
 // client side rendering with react
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'view/build/index.html'));
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 app.listen(5000);
