@@ -83,9 +83,10 @@ app.get('/auth/logout',
 
 // returns user object or empty object if not authenticated
 app.get('/auth/current_user', (req, res) => {
-  // do not want to be sending out password and id
+  // do not want to be sending out password
   if (req.user) {
     return res.send({
+      id: req.user.id,
       username: req.user.username,
       displayName: req.user.displayName,
       emails: req.user.emails,
