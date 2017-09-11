@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 
 class HomePage extends Component {
   renderContent() {
-    switch (this.props.auth) {
+    switch (this.props.user) {
       case null:
-        return;
+        return {};
       case false:
         return <p>Welcome! Please <Link to="/login">log in</Link></p>;
       default:
@@ -23,8 +23,10 @@ class HomePage extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps(state) {
+  return {
+    user: state,
+  };
 }
 
 export default connect(mapStateToProps)(HomePage);

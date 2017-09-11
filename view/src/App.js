@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from './actions';
+import { fetchUser } from './actions/userAction';
 
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
@@ -13,15 +13,14 @@ class App extends React.Component {
   }
 
   render() {
+    const { location } = this.props;
     return (
-      <BrowserRouter>
-        <div>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/login" exact component={LoginPage} />
-        </div>
-      </BrowserRouter>
+      <div>
+        <Route location={location} path="/" exact component={HomePage} />
+        <Route location={location} path="/login" exact component={LoginPage} />
+      </div>
     );
   }
 }
 
-export default connect(null, actions)(App);
+export default connect(null, { fetchUser })(App);
