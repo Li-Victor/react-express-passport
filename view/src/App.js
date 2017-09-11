@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchUser } from './actions/userAction';
@@ -22,5 +23,12 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  fetchUser: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default connect(null, { fetchUser })(App);

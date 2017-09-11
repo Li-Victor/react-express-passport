@@ -81,9 +81,17 @@ app.get('/auth/logout',
     res.redirect('/');
   });
 
+// returns user object or empty object if not authenticated
 app.get('/auth/current_user', (req, res) => {
-  console.log(req.user);
-  res.send(req.user);
+  // do not want to be sending out password and id
+  if (req.user) {
+    return res.send({
+      username: req.user.username,
+      displayName: req.user.displayName,
+      emails: req.user.emails,
+    });
+  }
+  return res.send({});
 });
 
 // client side rendering with react
