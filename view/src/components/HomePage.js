@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { isEmptyObject } from '../utils/emptyObject';
+
 class HomePage extends Component {
   renderContent() {
     const { user } = this.props;
     if (user === null) return <div>Something has gone terribly wrong</div>;
-    else if (Object.keys(user).length === 0 && user.constructor === Object) { // empty object
+    else if (isEmptyObject(user)) {
       return <p>Welcome! Please <Link to="/login">log in</Link></p>;
     }
     return <a href="/auth/logout">Logout</a>;
@@ -22,15 +24,15 @@ class HomePage extends Component {
   }
 }
 
+HomePage.propTypes = {
+  /* eslint-disable */
+  user: PropTypes.object.isRequired,
+};
+
 function mapStateToProps(state) {
   return {
     user: state,
   };
 }
-
-HomePage.propTypes = {
-  /* eslint-disable */
-  user: PropTypes.object.isRequired,
-};
 
 export default connect(mapStateToProps)(HomePage);
