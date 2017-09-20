@@ -6,12 +6,14 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 import App from './App';
-import authReducers from './reducers/authReducer';
+import authReducer from './reducers/authReducer';
 
-const store = createStore(authReducers, {}, applyMiddleware(reduxThunk));
+const store = createStore(authReducer, {}, applyMiddleware(reduxThunk));
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       <Route component={App} />
     </Provider>
-  </BrowserRouter>, document.getElementById('root'));
+  </BrowserRouter>,
+  document.getElementById('root')
+);
