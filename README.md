@@ -12,3 +12,10 @@ This project uses
 * Express
 * Express session
 * Passport local
+
+## Installation
+First [**yarn**](https://yarnpkg.com/en/) must be installed globally. <br/>
+Then run the `yarn` command in this project's root directory and `yarn` command in the `client` directory
+Finally `yarn build` in the project root directory.
+
+To run the project run `yarn run start` command.
