@@ -15,7 +15,6 @@ This project uses
 
 ## Installation
 First [**yarn**](https://yarnpkg.com/en/) must be installed globally. <br/>
-Then run the `yarn` command in this project's root directory and `yarn` command in the `client` directory
-Finally `yarn build` in the project root directory.
+In the terminal of this project's root directory, run `yarn` and `yarn run build` commands.
 
-To run the project run `yarn run start` command.
+To start the project run the `yarn run start` command.
