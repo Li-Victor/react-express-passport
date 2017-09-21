@@ -17,4 +17,4 @@ This project uses
 First [**yarn**](https://yarnpkg.com/en/) must be installed globally. <br/>
 In the terminal of this project's root directory, run `yarn` and `yarn run build` commands.
 
-To start the project run the `yarn run start` command.
+To start the project run the `yarn run start` command, and locate the browser to `localhost:5000`.
