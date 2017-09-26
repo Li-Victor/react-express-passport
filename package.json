@@ -4,11 +4,14 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "build": "cd client && yarn && yarn build && cd ..",
-    "start": "node server.js"
+    "prod": "cd client && yarn && yarn build && cd .. && yarn run server",
+    "server": "node server.js",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "concurrently": "^3.5.0",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
