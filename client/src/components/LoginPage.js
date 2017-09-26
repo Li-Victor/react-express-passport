@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { isEmptyObject } from '../utils/emptyObject';
+import isEmptyObject from '../utils/emptyObject';
 
 const LoginPage = ({ user }) => {
   if (user === null) return <div>Something has gone terribly wrong</div>;
@@ -12,7 +12,8 @@ const LoginPage = ({ user }) => {
       <form action="/auth/login" method="post">
         <div>
           <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" /><br />
+          <input type="text" id="username" name="username" />
+          <br />
         </div>
 
         <div>
@@ -31,12 +32,12 @@ const LoginPage = ({ user }) => {
 
 LoginPage.propTypes = {
   /* eslint-disable */
-  user: PropTypes.object.isRequired,
-}
+  user: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
   return {
-    user: state,
+    user: state
   };
 }
 

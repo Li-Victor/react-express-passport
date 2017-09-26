@@ -13,16 +13,22 @@ const app = express();
 // (`username` and `password`) submitted by the user.  The function must verify
 // that the password is correct and then invoke `cb` with a user object, which
 // will be set at `req.user` in route handlers after authentication.
-passport.use(new Strategy(
-  (username, password, cb) => {
+passport.use(
+  new Strategy((username, password, cb) => {
     db.users.findByUsername(username, (err, user) => {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      if (user.password !== password) { return cb(null, false); }
+      if (err) {
+        return cb(err);
+      }
+      if (!user) {
+        return cb(null, false);
+      }
+      if (user.password !== password) {
+        return cb(null, false);
+      }
       return cb(null, user);
     });
-  }));
-
+  })
+);
 
 // Configure Passport authenticated session persistence.
 //
@@ -37,7 +43,9 @@ passport.serializeUser((user, cb) => {
 
 passport.deserializeUser((id, cb) => {
   db.users.findById(id, (err, user) => {
-    if (err) { return cb(err); }
+    if (err) {
+      return cb(err);
+    }
     return cb(null, user);
   });
 });
@@ -54,13 +62,16 @@ app.use(express.static(path.join(__dirname, '/client/build')));
 // app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 365,
-  },
-}));
+app.use(
+  require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 365
+    }
+  })
+);
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
@@ -69,17 +80,18 @@ app.use(passport.session());
 
 // Define routes.
 
-app.post('/auth/login',
+app.post(
+  '/auth/login',
   passport.authenticate('local', { failureRedirect: '/login' }),
   (req, res) => {
     res.redirect('/');
-  });
+  }
+);
 
-app.get('/auth/logout',
-  (req, res) => {
-    req.logout();
-    res.redirect('/');
-  });
+app.get('/auth/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
 // returns user object or empty object if not authenticated
 app.get('/auth/current_user', (req, res) => {
@@ -89,7 +101,7 @@ app.get('/auth/current_user', (req, res) => {
       id: req.user.id,
       username: req.user.username,
       displayName: req.user.displayName,
-      emails: req.user.emails,
+      emails: req.user.emails
     });
   }
   return res.send({});
