@@ -6,8 +6,7 @@ import { Redirect } from 'react-router-dom';
 import isEmptyObject from '../utils/emptyObject';
 
 const LoginPage = ({ user }) => {
-  if (user === null) return <div>Something has gone terribly wrong</div>;
-  else if (isEmptyObject(user)) {
+  if (isEmptyObject(user)) {
     return (
       <form action="/auth/login" method="post">
         <div>
