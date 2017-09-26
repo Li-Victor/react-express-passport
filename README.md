@@ -17,4 +17,8 @@ This project uses
 First [**yarn**](https://yarnpkg.com/en/) must be installed globally. <br/>
 In the terminal of this project's root directory, run `yarn` and `yarn run build` commands.
 
-To start the project run the `yarn run start` command, and locate the browser to `localhost:5000`.
+To run in development mode with live-reloading for express and create-react-app, run `yarn run dev`. <br/>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+To run in production mode, run `yarn run prod`. <br/>
+Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
